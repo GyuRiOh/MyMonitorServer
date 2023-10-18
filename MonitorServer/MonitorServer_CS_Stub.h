@@ -7,7 +7,7 @@
 #include "MonitorServer_SC_Proxy.h"
 #include "../MonitorProtocol.h"
 
-namespace server_baby
+namespace MyNetwork
 {
 	class MonitorServer_CS_Stub
 	{

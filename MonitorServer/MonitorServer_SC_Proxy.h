@@ -4,7 +4,7 @@
 #include "../NetRoot/NetServer/NetSessionID.h"
 #include "MonitorServer.h"
 
-namespace server_baby
+namespace MyNetwork
 {
 	class MonitorServer_SC_Proxy
 	{

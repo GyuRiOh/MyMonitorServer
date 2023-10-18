@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <thread>
 
-server_baby::MonitorServer::MonitorServer() : isDBthreadRunning_(false), dbThread_(INVALID_HANDLE_VALUE)
+MyNetwork::MonitorServer::MonitorServer() : isDBthreadRunning_(false), dbThread_(INVALID_HANDLE_VALUE)
 {
 
     stub_ = new MonitorServer_CS_Stub(this);
@@ -69,7 +69,7 @@ server_baby::MonitorServer::MonitorServer() : isDBthreadRunning_(false), dbThrea
 
 }
 
-server_baby::MonitorServer::~MonitorServer()
+MyNetwork::MonitorServer::~MonitorServer()
 {
 
     isDBthreadRunning_ = false;
@@ -80,17 +80,17 @@ server_baby::MonitorServer::~MonitorServer()
     delete relayClient_;
 }
 
-bool server_baby::MonitorServer::OnConnectionRequest(const SOCKADDR_IN* const addr)
+bool MyNetwork::MonitorServer::OnConnectionRequest(const SOCKADDR_IN* const addr)
 {
     return true;
 }
 
-void server_baby::MonitorServer::OnClientJoin(NetSessionID sessionID)
+void MyNetwork::MonitorServer::OnClientJoin(NetSessionID sessionID)
 {
 
 }
 
-void server_baby::MonitorServer::OnClientLeave(NetSessionID sessionID)
+void MyNetwork::MonitorServer::OnClientLeave(NetSessionID sessionID)
 {
     AcquireSRWLockExclusive(&clientLock_);
 
@@ -108,7 +108,7 @@ void server_baby::MonitorServer::OnClientLeave(NetSessionID sessionID)
     ReleaseSRWLockExclusive(&clientLock_);
 }
 
-void server_baby::MonitorServer::OnRecv(NetPacketSet* packetList)
+void MyNetwork::MonitorServer::OnRecv(NetPacketSet* packetList)
 {
     if (!stub_->PacketProc(packetList))
         Disconnect(packetList->GetSessionID());
@@ -116,27 +116,27 @@ void server_baby::MonitorServer::OnRecv(NetPacketSet* packetList)
     NetPacketSet::Free(packetList);
 }
 
-void server_baby::MonitorServer::OnSend(NetSessionID NetSessionID, int sendSize)
+void MyNetwork::MonitorServer::OnSend(NetSessionID NetSessionID, int sendSize)
 {
 
 }
 
-void server_baby::MonitorServer::OnWorkerThreadBegin()
+void MyNetwork::MonitorServer::OnWorkerThreadBegin()
 {
 
 }
 
-void server_baby::MonitorServer::OnWorkerThreadEnd()
+void MyNetwork::MonitorServer::OnWorkerThreadEnd()
 {
 
 }
 
-void server_baby::MonitorServer::OnMonitor(const MonitoringInfo* const info)
+void MyNetwork::MonitorServer::OnMonitor(const MonitoringInfo* const info)
 {
 
 }
 
-void server_baby::MonitorServer::OnStart()
+void MyNetwork::MonitorServer::OnStart()
 {
 
     relayClient_ = new MonitorRelayClient;
@@ -150,7 +150,7 @@ void server_baby::MonitorServer::OnStart()
     relayClient_->RegisterMonitorServer(this);
 }
 
-int server_baby::MonitorServer::DBSave()
+int MyNetwork::MonitorServer::DBSave()
 {
     int min = NULL;
     int max = NULL;
@@ -207,7 +207,7 @@ int server_baby::MonitorServer::DBSave()
     return 0;
 }
 
-int server_baby::MonitorServer::GetAverageFromUnits(BYTE type)
+int MyNetwork::MonitorServer::GetAverageFromUnits(BYTE type)
 {
 
     int total = NULL;
@@ -224,7 +224,7 @@ int server_baby::MonitorServer::GetAverageFromUnits(BYTE type)
     return ret;
 }
 
-DWORD __stdcall server_baby::MonitorServer::DBSaveThread(LPVOID arg)
+DWORD __stdcall MyNetwork::MonitorServer::DBSaveThread(LPVOID arg)
 {
     MonitorServer* server = reinterpret_cast<MonitorServer*>(arg);
     return server->DBSave();

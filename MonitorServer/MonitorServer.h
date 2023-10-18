@@ -6,7 +6,7 @@
 
 using namespace std;
 
-namespace server_baby
+namespace MyNetwork
 {
     class MonitorServer_CS_Stub;
     class MonitorServer_SC_Proxy;
@@ -54,6 +54,7 @@ namespace server_baby
         void OnError(int errCode, WCHAR*)  override {}
         void OnMonitor(const MonitoringInfo* const info) override;
         void OnStart() override;
+        void OnStop() override {};
 
         int DBSave();
         int GetAverageFromUnits(BYTE type);

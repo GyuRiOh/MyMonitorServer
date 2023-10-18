@@ -4,7 +4,7 @@
 #include "MonitorServer_CS_Stub.h"
 #include "MonitorServer_SC_Proxy.h"
 
-namespace server_baby
+namespace MyNetwork
 {
 	class MonitorRelayClient : public LanClient
 	{
